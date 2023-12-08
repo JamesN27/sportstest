@@ -1,4 +1,5 @@
 'use client';
+
 import React, { useState } from 'react';
 
 const EventForm = ({ onSubmit }) => {
@@ -13,6 +14,13 @@ const EventForm = ({ onSubmit }) => {
     // Prepare the event data
     const eventData = { date, time, sport, homeTeam, awayTeam };
     onSubmit(eventData);
+
+    // Clear form fields after submission
+    setDate('');
+    setTime('');
+    setSport('');
+    setHomeTeam('');
+    setAwayTeam('');
   };
 
   return (
@@ -67,4 +75,19 @@ const EventForm = ({ onSubmit }) => {
   );
 };
 
-export default EventForm;
+const ParentComponent = () => {
+  const handleFormSubmit = (eventData) => {
+    // Handle form submission logic here
+    console.log(eventData);
+    // You can perform further actions here with the event data
+  };
+
+  return (
+    <div>
+      <h1>Event Form</h1>
+      <EventForm onSubmit={handleFormSubmit} />
+    </div>
+  );
+};
+
+export default ParentComponent;

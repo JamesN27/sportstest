@@ -1,3 +1,4 @@
+import postgres from 'postgres';
 import pool from './db.js';
 
 export async function getAllSports() {
