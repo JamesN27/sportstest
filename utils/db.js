@@ -1,12 +1,14 @@
-import pg from 'pg';
+import dotenv from 'dotenv';
 import postgres from 'postgres';
 
-const pool = new postgres.Pool({
+dotenv.config();
+
+const pool = postgres({
   user: 'postgres',
-  host: 'localhost',
-  database: 'sportscalendar',
   password: 'postgres',
-  port: 5432,
+  host: 'localhost',
+  port: '5432',
+  database: 'sportscalendar',
 });
 
 export default pool;
