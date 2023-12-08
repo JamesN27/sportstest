@@ -1,6 +1,7 @@
 // pages/calendar/index.js
 'use client';
 import React, { useEffect, useState } from 'react';
+import EventForm from './eventForm'; // Update the path based on your file structure
 
 const CalendarPage = () => {
   const [events, setEvents] = useState([]);
@@ -22,6 +23,7 @@ const CalendarPage = () => {
   return (
     <div>
       <h1>Sport Calendar</h1>
+      <EventForm /> {/* Include the EventForm component here */}
       <ul>
         {events.map((event) => (
           <li key={event.id}>
