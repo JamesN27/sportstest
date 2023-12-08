@@ -1,44 +1,67 @@
 'use client';
 import React, { useState } from 'react';
 
-const EventForm = () => {
-  const [formData, setFormData] = useState({
-    date: '',
-    time: '',
-    sport: '',
-    homeTeam: '',
-    awayTeam: '',
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
+const EventForm = ({ onSubmit }) => {
+  const [date, setDate] = useState('');
+  const [time, setTime] = useState('');
+  const [sport, setSport] = useState('');
+  const [homeTeam, setHomeTeam] = useState('');
+  const [awayTeam, setAwayTeam] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission here (send data to backend API)
-    console.log(formData); // For testing, log form data to console
-    // Reset form fields
-    setFormData({
-      date: '',
-      time: '',
-      sport: '',
-      homeTeam: '',
-      awayTeam: '',
-    });
+    // Prepare the event data
+    const eventData = { date, time, sport, homeTeam, awayTeam };
+    onSubmit(eventData);
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <label>Date:</label>
-      <input
-        type="date"
-        name="date"
-        value={formData.date}
-        onChange={handleChange}
-      />
-      {/* Other input fields for time, sport, home team, away team */}
+      <label>
+        Date:
+        <input
+          type="text"
+          value={date}
+          onChange={(e) => setDate(e.target.value)}
+          required
+        />
+      </label>
+      <label>
+        Time:
+        <input
+          type="text"
+          value={time}
+          onChange={(e) => setTime(e.target.value)}
+          required
+        />
+      </label>
+      <label>
+        Sport:
+        <input
+          type="text"
+          value={sport}
+          onChange={(e) => setSport(e.target.value)}
+          required
+        />
+      </label>
+      <label>
+        Home Team:
+        <input
+          type="text"
+          value={homeTeam}
+          onChange={(e) => setHomeTeam(e.target.value)}
+          required
+        />
+      </label>
+      <label>
+        Away Team:
+        <input
+          type="text"
+          value={awayTeam}
+          onChange={(e) => setAwayTeam(e.target.value)}
+          required
+        />
+      </label>
       <button type="submit">Add Event</button>
     </form>
   );
