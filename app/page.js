@@ -1,7 +1,7 @@
 // pages/calendar/index.js
 'use client';
 import React, { useEffect, useState } from 'react';
-import EventForm from './eventForm'; // Update the path based on your file structure
+import EventForm from './eventForm';
 
 const CalendarPage = () => {
   const [events, setEvents] = useState([]);
@@ -20,10 +20,31 @@ const CalendarPage = () => {
     fetchData();
   }, []);
 
+  const handleFormSubmit = async (eventData) => {
+    try {
+      const response = await fetch('/api/events', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(eventData),
+      });
+
+      if (response.ok) {
+        const newEvent = await response.json();
+        setEvents([...events, newEvent]);
+      } else {
+        console.error('Failed to add event');
+      }
+    } catch (error) {
+      console.error('Error adding event:', error);
+    }
+  };
+
   return (
     <div>
       <h1>Sport Calendar</h1>
-      <EventForm /> {/* Include the EventForm component here */}
+      <EventForm onSubmit={handleFormSubmit} />
       <ul>
         {events.map((event) => (
           <li key={event.id}>

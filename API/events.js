@@ -1,10 +1,15 @@
 import postgres from 'postgres';
-import { addEvent, sql } from '../utils/db';
+import { addEvent, sql } from '../utils/db.mjs';
 
 export default async function handler(req, res) {
   if (req.method === 'GET') {
     try {
-      const result = await sql`SELECT * FROM events`;
+      const result = await sql`
+        SELECT
+          *
+        FROM
+          events
+      `;
       res.status(200).json(result);
     } catch (error) {
       console.error('Error fetching events:', error);
